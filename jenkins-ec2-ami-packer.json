@@ -1,0 +1,32 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": ""
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "ap-east-1",
+            "source_ami": "ami-0e5ee44e38fd711f7",
+            "instance_type": "c5.xlarge",
+            "ssh_username": "ec2-user",
+            "ami_name": "packer-jenkins-ami-{{timestamp}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo amazon-linux-extras install epel -y",
+                "sudo yum update -y",
+                "sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo",
+                "sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key",
+                "sudo yum upgrade",
+                "sudo amazon-linux-extras install java-openjdk11 -y",
+                "sudo yum install jenkins -y"
+            ]
+        }
+    ]
+}
