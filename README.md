@@ -25,7 +25,7 @@
 - Gitlab ami form AWS AMI Market by Gitlab
 
 ## aws user authorized to perform 
-- User: arn:aws:iam::977593239070:user/zane
+- User: arn:aws:iam::9***:user/zane
 - EFS
 - iam:ListUsers
 - iam:ListRoles
